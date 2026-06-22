@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D3B24C35-EBFE-441A-B4AF-9C01F03BC008}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Target</RootNamespace>
+    <AssemblyName>Target</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>D:\SAP B1 Add On Development\Publish\Target\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Target.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>AF7EF94921B9380D02E931C6BB8E83F29B721A0E</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Target_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus, Version=7.6.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.7.6.0\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=7.5.0.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.Interfaces.7.5.0\lib\net462\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=7.5.0.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.System.Drawing.7.5.0\lib\net462\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.3.0.1\lib\netstandard2.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.2.0.0\lib\net452\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing.Common, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.8.0.4\lib\net462\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="SAPBusinessOneSDK" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AreaTarget.b1f.cs">
+      <DependentUpon>AreaTarget.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="DealerTarget.b1f.cs">
+      <DependentUpon>DealerTarget.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="Form_No_ApprovalList.b1f.cs">
+      <DependentUpon>Form_No_ApprovalList.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="Form_No_DeliverySchedule.b1f.cs">
+      <DependentUpon>Form_No_DeliverySchedule.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="Form_No_SOList.b1f.cs">
+      <DependentUpon>Form_No_SOList.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Sys_Delivery.cs" />
+    <Compile Include="Form_UDO_DeliverySchedule.b1f.cs">
+      <DependentUpon>Form_UDO_DeliverySchedule.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="Global.cs" />
+    <Compile Include="GlobalFunction.cs" />
+    <Compile Include="Location.b1f.cs">
+      <DependentUpon>Location.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="LocationEmpMapping.b1f.cs">
+      <DependentUpon>LocationEmpMapping.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="Locations.b1f.cs">
+      <DependentUpon>Locations.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="LocationType.b1f.cs">
+      <DependentUpon>LocationType.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="LocationTypes.b1f.cs">
+      <DependentUpon>LocationTypes.b1f</DependentUpon>
+    </Compile>
+    <Compile Include="Model\AccessFileViewModel.cs" />
+    <Compile Include="Model\CostCenterMaster.cs" />
+    <Compile Include="Model\CustomerGroupMaster.cs" />
+    <Compile Include="Model\CustomerMaster.cs" />
+    <Compile Include="Model\ItemGroupMaster.cs" />
+    <Compile Include="Model\ItemMaster.cs" />
+    <Compile Include="Model\ReturnData.cs" />
+    <Compile Include="OpenDialog.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Menu.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadExcelFile.cs" />
+    <Compile Include="SAPCostCenter.cs" />
+    <Compile Include="SAPCustomer.cs" />
+    <Compile Include="SAPCustomerGroup.cs" />
+    <Compile Include="SAPItemGroup.cs" />
+    <Compile Include="SAPItemMaster.cs" />
+    <Compile Include="SAPSalesOrder.cs" />
+    <Compile Include="System_Form.cs" />
+    <None Include="AreaTarget.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <None Include="DealerTarget.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <None Include="Form_No_ApprovalList.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <EmbeddedResource Include="Form_No_DeliverySchedule.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </EmbeddedResource>
+    <None Include="Form_No_SOList.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <None Include="Form_UDO_DeliverySchedule.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <None Include="Location.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <None Include="LocationEmpMapping.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <None Include="Locations.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <None Include="LocationType.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <None Include="LocationTypes.b1f">
+      <FormCategory>UserForm</FormCategory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Target_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
