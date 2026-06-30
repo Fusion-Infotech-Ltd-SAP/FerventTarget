@@ -284,34 +284,7 @@ namespace Target
 
                             //oform.DataSources.DBDataSources.Item("@FIL_DH_DELRSCHD").SetValue("DocNum", 0, DocNo.ToString());
 
-                            SAPbouiCOM.ComboBox ocmb = null;
-
-                            if (oform.Items.Item("CBSERIES") != null)
-                            {
-                                ocmb = (SAPbouiCOM.ComboBox)oform.Items.Item("CBSERIES").Specific;
-                            }
-
-                            if (ocmb == null)
-                            {
-                                throw new Exception("CBSERIES not found.");
-                            }
-
-                            Global.objFun.LoadComboBoxSeries(ocmb, "FIL_D_DELRSCHD");
-
-                            if (ocmb.ValidValues.Count > 0 && ocmb.Selected == null)
-                            {
-                                ocmb.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                            }
-
-                            if (ocmb.Selected == null)
-                            {
-                                throw new Exception("No series selected.");
-                            }
-
-                            string seriesValue = ocmb.Selected.Value;
-                            long docNo = oform.BusinessObject.GetNextSerialNumber(seriesValue, "FIL_D_DELRSCHD");
-                            oform.DataSources.DBDataSources.Item("@FIL_DH_DELRSCHD").SetValue("DocNum", 0, docNo.ToString());
-
+                            Global.objFun.LoadSeriesAndSetDocNum(oform, "CBSERIES", "FIL_D_DELRSCHD", "@FIL_DH_DELRSCHD");
                             oform.Items.Item("ETDOCNUM").SetAutoManagedAttribute(SAPbouiCOM.BoAutoManagedAttr.ama_Editable, (int)SAPbouiCOM.BoAutoFormMode.afm_Add, SAPbouiCOM.BoModeVisualBehavior.mvb_False);
                             oform.Items.Item("CBSTATUS").SetAutoManagedAttribute(SAPbouiCOM.BoAutoManagedAttr.ama_Editable, (int)SAPbouiCOM.BoAutoFormMode.afm_Add, SAPbouiCOM.BoModeVisualBehavior.mvb_False);
                             SAPbouiCOM.Button OclsBtn = (SAPbouiCOM.Button)oform.Items.Item("CLSBTN").Specific;
@@ -414,34 +387,8 @@ namespace Target
 
                                 if (ofrm.Mode == SAPbouiCOM.BoFormMode.fm_ADD_MODE)
                                 {
-                                    SAPbouiCOM.ComboBox ocmb = null;
 
-                                    if (ofrm.Items.Item("CBSERIES") != null)
-                                    {
-                                        ocmb = (SAPbouiCOM.ComboBox)ofrm.Items.Item("CBSERIES").Specific;
-                                    }
-
-                                    if (ocmb == null)
-                                    {
-                                        throw new Exception("CBSERIES not found.");
-                                    }
-
-                                    Global.objFun.LoadComboBoxSeries(ocmb, "FIL_D_DELRSCHD");
-
-                                    if (ocmb.ValidValues.Count > 0 && ocmb.Selected == null)
-                                    {
-                                        ocmb.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                                    }
-
-                                    if (ocmb.Selected == null)
-                                    {
-                                        throw new Exception("No series selected.");
-                                    }
-
-                                    string seriesValue = ocmb.Selected.Value;
-                                    long docNo = ofrm.BusinessObject.GetNextSerialNumber(seriesValue, "FIL_D_DELRSCHD");
-                                    ofrm.DataSources.DBDataSources.Item("@FIL_DH_DELRSCHD").SetValue("DocNum", 0, docNo.ToString());
-
+                                    Global.objFun.LoadSeriesAndSetDocNum(ofrm, "CBSERIES", "FIL_D_DELRSCHD", "@FIL_DH_DELRSCHD");
                                     SAPbouiCOM.Button oPost = (SAPbouiCOM.Button)ofrm.Items.Item("BTPSOT").Specific;
                                     oPost.Item.Enabled = false;
                                     ofrm.Title = "Delivery Schedule/Order";
