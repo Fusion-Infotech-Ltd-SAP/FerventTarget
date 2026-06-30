@@ -53,6 +53,7 @@ namespace Target
             this.ETDOCNUM = ((SAPbouiCOM.EditText)(this.GetItem("ETDOCNUM").Specific));
             this.STPOSTDATE = ((SAPbouiCOM.StaticText)(this.GetItem("STPOSTDATE").Specific));
             this.ETPOSTDATE = ((SAPbouiCOM.EditText)(this.GetItem("ETPOSTDATE").Specific));
+            this.ETPOSTDATE.LostFocusAfter += new SAPbouiCOM._IEditTextEvents_LostFocusAfterEventHandler(this.ETPOSTDATE_LostFocusAfter);
             this.STSCHDATE = ((SAPbouiCOM.StaticText)(this.GetItem("STSCHDATE").Specific));
             this.ETSCHDATE = ((SAPbouiCOM.EditText)(this.GetItem("ETSCHDATE").Specific));
             this.STDOCDATE = ((SAPbouiCOM.StaticText)(this.GetItem("STDOCDATE").Specific));
@@ -77,7 +78,7 @@ namespace Target
             this.MTX01 = ((SAPbouiCOM.Matrix)(this.GetItem("MTX01").Specific));
             this.MTX01.KeyDownAfter += new SAPbouiCOM._IMatrixEvents_KeyDownAfterEventHandler(this.MTX01_KeyDownAfter);
             this.MTX01.ChooseFromListAfter += new SAPbouiCOM._IMatrixEvents_ChooseFromListAfterEventHandler(this.MTX01_ChooseFromListAfter);
-            //              this.MTX01.KeyDownAfter += new SAPbouiCOM._IMatrixEvents_KeyDownAfterEventHandler(this.MTX01_KeyDownAfter);
+            //               this.MTX01.KeyDownAfter += new SAPbouiCOM._IMatrixEvents_KeyDownAfterEventHandler(this.MTX01_KeyDownAfter);
             this.MTX01.LostFocusAfter += new SAPbouiCOM._IMatrixEvents_LostFocusAfterEventHandler(this.MTX01_LostFocusAfter);
             this.BTCOPY = ((SAPbouiCOM.Button)(this.GetItem("BTCOPY").Specific));
             this.BTCOPY.ChooseFromListAfter += new SAPbouiCOM._IButtonEvents_ChooseFromListAfterEventHandler(this.BTCOPY_ChooseFromListAfter);
@@ -136,6 +137,30 @@ namespace Target
             this.DataAddAfter += new SAPbouiCOM.Framework.FormBase.DataAddAfterHandler(this.Form_DataAddAfter);
             this.LoadAfter += new LoadAfterHandler(this.Form_LoadAfter);
 
+        }
+
+
+        private void ETPOSTDATE_LostFocusAfter(object sboObject, SAPbouiCOM.SBOItemEventArg pVal)
+        {
+            SAPbouiCOM.Form oForm = Application.SBO_Application.Forms.Item(pVal.FormUID);
+
+            try
+            {
+                oForm.Freeze(true);
+                DateTime postDate = DateTime.ParseExact(((SAPbouiCOM.EditText)oForm.Items.Item("ETPOSTDATE").Specific).Value, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
+                if (!Global.objFun.LoadSeriesAndSetDocNum(oForm, "CBSERIES", "FIL_D_DELRSCHD", "@FIL_DH_DELRSCHD", postDate))
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Application.SBO_Application.MessageBox("Error: " + ex.Message);
+            }
+            finally
+            {
+                oForm.Freeze(false);
+            }
         }
 
 

@@ -551,25 +551,103 @@ namespace Target
         //    oMatrix.LoadFromDataSource();
         //    oMatrix.AutoResizeColumns();
         //}
-        public bool LoadComboBoxSeries(SAPbouiCOM.ComboBox oComboBox, string UDOID)  // tow generate a series in document type UDO.- paarmeter will be combobox and the UDO ID.
+
+        public bool LoadSeriesAndSetDocNum(SAPbouiCOM.Form oForm, string comboItemId, string udoId, string dbDataSource, DateTime? postingDate = null)
         {
-            bool flag;
+            SAPbouiCOM.ComboBox oCombo = null;
+            SAPbobsCOM.Recordset rs = null;
+
             try
             {
-                oComboBox.ExpandType = SAPbouiCOM.BoExpandType.et_DescriptionOnly;
-                oComboBox.ValidValues.LoadSeries(UDOID, SAPbouiCOM.BoSeriesMode.sf_Add);  // ONLY TO LOAD A COMBOBOX
-                oComboBox.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
-                oComboBox.Item.DisplayDesc = true;
-                flag = true;
-            }
-            catch (Exception)
-            {
-                Application.SBO_Application.SetStatusBarMessage("error");
-                flag = false;
+                oForm.Freeze(true);
 
+                try
+                {
+                    oCombo = (SAPbouiCOM.ComboBox)oForm.Items.Item(comboItemId).Specific;
+                }
+                catch (Exception ex)
+                {
+                    Application.SBO_Application.SetStatusBarMessage($"Error: {ex.Message}", SAPbouiCOM.BoMessageTime.bmt_Long, true);
+                }
+
+                DateTime postDate = postingDate ?? DateTime.Today;
+                string date = postDate.ToString("yyyyMMdd");
+
+                oCombo.ExpandType = SAPbouiCOM.BoExpandType.et_DescriptionOnly;
+                oCombo.Item.DisplayDesc = true;
+
+                while (oCombo.ValidValues.Count > 0)
+                {
+                    oCombo.ValidValues.Remove(0, SAPbouiCOM.BoSearchKey.psk_Index);
+                }
+
+                oCombo.ValidValues.LoadSeries(udoId, SAPbouiCOM.BoSeriesMode.sf_View);
+
+                rs = (SAPbobsCOM.Recordset)Global.ocomp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
+
+                rs.DoQuery(string.Format(@"
+                            SELECT TOP 1 T1.""Series""
+                            FROM ""OFPR"" T0
+                            INNER JOIN ""NNM1"" T1
+                                ON T0.""Indicator"" = T1.""Indicator""
+                            WHERE '{0}' BETWEEN T0.""F_RefDate"" AND T0.""T_RefDate""
+                              AND T1.""ObjectCode"" = '{1}'
+                              AND T1.""Locked"" = 'N'
+                            ORDER BY T0.""AbsEntry"" DESC, T1.""Series""",
+                                    date,
+                                    udoId.Replace("'", "''")));
+
+                if (rs.EoF)
+                {
+                    Application.SBO_Application.SetStatusBarMessage("No active series found.", SAPbouiCOM.BoMessageTime.bmt_Long, true);
+                    return false;
+                }
+                string seriesValue = rs.Fields.Item("Series").Value.ToString();
+
+                try
+                {
+                    oCombo.Select(seriesValue, SAPbouiCOM.BoSearchKey.psk_ByValue);
+                }
+                catch (Exception ex)
+                {
+                    Application.SBO_Application.SetStatusBarMessage($"Series exists in database but could not be loaded into the ComboBox. {ex.Message}", SAPbouiCOM.BoMessageTime.bmt_Long, true);
+                    return false;
+                }
+
+                long nextDocNo = oForm.BusinessObject.GetNextSerialNumber(seriesValue, udoId);
+                oForm.DataSources.DBDataSources.Item(dbDataSource).SetValue("DocNum", 0, nextDocNo.ToString());
+
+                return true;
             }
-            return flag;
+            catch (Exception ex)
+            {
+                Application.SBO_Application.SetStatusBarMessage(ex.Message, SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                return false;
+            }
+            finally
+            {
+                oForm.Freeze(false);
+            }
         }
+        //public bool LoadComboBoxSeries(SAPbouiCOM.ComboBox oComboBox, string UDOID)  // tow generate a series in document type UDO.- paarmeter will be combobox and the UDO ID.
+        //{
+        //    bool flag;
+        //    try
+        //    {
+        //        oComboBox.ExpandType = SAPbouiCOM.BoExpandType.et_DescriptionOnly;
+        //        oComboBox.ValidValues.LoadSeries(UDOID, SAPbouiCOM.BoSeriesMode.sf_Add);  // ONLY TO LOAD A COMBOBOX
+        //        oComboBox.Select(0, SAPbouiCOM.BoSearchKey.psk_Index);
+        //        oComboBox.Item.DisplayDesc = true;
+        //        flag = true;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        Application.SBO_Application.SetStatusBarMessage("error");
+        //        flag = false;
+
+        //    }
+        //    return flag;
+        //}
         public void DisablePastMonthsRows(SAPbouiCOM.Matrix omatrix)
         {
             try
