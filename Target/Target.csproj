@@ -156,6 +156,8 @@
     <Compile Include="Model\CostCenterMaster.cs" />
     <Compile Include="Model\CustomerGroupMaster.cs" />
     <Compile Include="Model\CustomerMaster.cs" />
+    <Compile Include="Model\DeliveryNotification.cs" />
+    <Compile Include="Model\DeliveryReturnData.cs" />
     <Compile Include="Model\ItemGroupMaster.cs" />
     <Compile Include="Model\ItemMaster.cs" />
     <Compile Include="Model\ReturnData.cs" />

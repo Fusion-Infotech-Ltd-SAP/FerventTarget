@@ -12,7 +12,7 @@ namespace Target
         private AccessFileViewModel accessFVM;
         public SAPCustomer()
         {
-            accessFVM = Global.objFun.GetAccessFile();
+            accessFVM = Global.objFun.GetAccessFile("FERVENT_ERPNext");
             Application.SBO_Application.FormDataEvent += new SAPbouiCOM._IApplicationEvents_FormDataEventEventHandler(SBO_Application_FormDataEvent);
         }
         private void SBO_Application_FormDataEvent(ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, out bool BubbleEvent)
