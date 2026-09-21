@@ -14,7 +14,7 @@ namespace Target
         private AccessFileViewModel accessFVM;
         public SAPItemGroup()
         {
-            accessFVM = Global.objFun.GetAccessFile();
+            accessFVM = Global.objFun.GetAccessFile("FERVENT_ERPNext");
             Application.SBO_Application.FormDataEvent += new SAPbouiCOM._IApplicationEvents_FormDataEventEventHandler(SBO_Application_FormDataEvent);
         }
 
