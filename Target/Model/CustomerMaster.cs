@@ -24,6 +24,6 @@ namespace Target.Model
         public string user_id { get; set; }
         public string user_name { get; set; }
 
-        public string customer_PhoneNum { get; set; }
+        public string custom_phone { get; set; }
     }
 }

@@ -109,7 +109,7 @@ namespace Target
                                 CustomerMaster.custom_latitude = Latitude;
                                 CustomerMaster.custom_longitude = Longitude;
                                 CustomerMaster.custom_radius = Radius;
-                                CustomerMaster.customer_PhoneNum = phoneNum;
+                                CustomerMaster.custom_phone = phoneNum;
 
                                 ///Created/Updated By and Name
                                 SAPbobsCOM.Recordset businessObject = (SAPbobsCOM.Recordset)Global.ocomp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
