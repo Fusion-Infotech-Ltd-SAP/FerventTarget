@@ -48,6 +48,9 @@ namespace Target
                                 SAPbouiCOM.EditText StartDate = (SAPbouiCOM.EditText)oform.Items.Item("10002058").Specific;
                                 SAPbouiCOM.EditText EndDate = (SAPbouiCOM.EditText)oform.Items.Item("10002055").Specific;
 
+                                string phoneNum = ((SAPbouiCOM.EditText)oform.Items.Item("51").Specific).Value.Trim();
+                                //string phoneNum = oform.DataSources.DBDataSources.Item("OCPR").GetValue("Cellular", 0).Trim();
+
                                 SAPbouiCOM.ComboBox BpGroup = (SAPbouiCOM.ComboBox)oform.Items.Item("16").Specific;
                                 string BpGroupCode = BpGroup.Selected.Description.Trim(); //"Corporate Customers";
 
@@ -106,6 +109,7 @@ namespace Target
                                 CustomerMaster.custom_latitude = Latitude;
                                 CustomerMaster.custom_longitude = Longitude;
                                 CustomerMaster.custom_radius = Radius;
+                                CustomerMaster.customer_PhoneNum = phoneNum;
 
                                 ///Created/Updated By and Name
                                 SAPbobsCOM.Recordset businessObject = (SAPbobsCOM.Recordset)Global.ocomp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
