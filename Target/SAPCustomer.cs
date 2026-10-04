@@ -15,8 +15,10 @@ namespace Target
             accessFVM = Global.objFun.GetAccessFile("FERVENT_ERPNext");
             Application.SBO_Application.FormDataEvent += new SAPbouiCOM._IApplicationEvents_FormDataEventEventHandler(SBO_Application_FormDataEvent);
         }
+
         private void SBO_Application_FormDataEvent(ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, out bool BubbleEvent)
         {
+
             BubbleEvent = true;
 
             if (BusinessObjectInfo.BeforeAction == true && BusinessObjectInfo.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD
@@ -122,7 +124,7 @@ namespace Target
                                 ReturnData data = new ReturnData();
                                 Success = SaveAndUpdateBPMaster(CustomerMaster, data);
 
-                                if (Success == true && data.item_code != "")
+                                if (Success == true)
                                 {
                                     Application.SBO_Application.SetStatusBarMessage("Api Msg:" + data.ReturnMsg, SAPbouiCOM.BoMessageTime.bmt_Medium, false);
                                 }
@@ -132,8 +134,9 @@ namespace Target
                                     Application.SBO_Application.MessageBox("Customer Creation OR Updation failed — not synced with ERP-Next.");
 
                                     BubbleEvent = false; //Bubble Event-> To stop Adding item on Item Master on SAP B1
+                                    return;
                                 }
-                                break;
+
                             }
                             break;
                         }

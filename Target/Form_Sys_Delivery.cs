@@ -210,12 +210,12 @@ namespace Target
 
                             if (BusinessObjectInfo.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD)
                             {
-                                message = "Delivery No : " + docNum + " has been created successfully for Dealer : " + dealerCode + ".";
+                                message = "Delivery No : " + docNum + " has been created successfully for Dealer : " + dealerCode + " ";
                             }
 
                             else if (BusinessObjectInfo.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_UPDATE)
                             {
-                                message = "Delivery No : " + docNum + " has been updated successfully for Dealer : " + dealerCode + ".";
+                                message = "Delivery No : " + docNum + " has been updated successfully for Dealer : " + dealerCode + " ";
                             }
 
                             deliveryNotification.user_id = dealerCode;

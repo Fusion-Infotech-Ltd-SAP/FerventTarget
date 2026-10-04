@@ -35,6 +35,7 @@ namespace Target
                 SAPCustomer customer = new SAPCustomer();
                 SAPCustomerGroup customerGroup = new SAPCustomerGroup();
                 Form_Sys_Delivery delivery = new Form_Sys_Delivery();
+                Form_Sys_IncomingPayment incomingPayment = new Form_Sys_IncomingPayment();
                 oApp.RegisterMenuEventHandler(MyMenu.SBO_Application_MenuEvent);
                 Application.SBO_Application.AppEvent += new SAPbouiCOM._IApplicationEvents_AppEventEventHandler(SBO_Application_AppEvent);
                 oApp.Run();
