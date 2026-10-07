@@ -867,18 +867,18 @@ namespace Target
             }
         }
 
-        public AccessFileViewModel GetAccessFile()
+        public AccessFileViewModel GetAccessFile(string Project)
         {
-          AccessFileViewModel accessFVM;
+            AccessFileViewModel accessFVM;
 
             SAPbobsCOM.Recordset rtc = (SAPbobsCOM.Recordset)Global.ocomp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
-            string Project = "FERVENT_ERPNext";
+            //  string Project = "FERVENT_ERPNext";
 
-            string sqlUname = string.Format("SELECT {0}Code{0} {0}IPPort{0},{0}Name{0} {0}Token{0} FROM {0}@FIL_TOKEN{0} WHERE {0}U_PROJECT{0} = '" + Project + "'", '"');
+            string sqlUname = string.Format("SELECT {0}U_IPPORT{0} {0}IPPort{0},{0}Name{0} {0}Token{0} FROM {0}@FIL_TOKEN{0} WHERE {0}U_PROJECT{0} = '" + Project + "'", '"');
             rtc.DoQuery(sqlUname);
-            
 
-            return  accessFVM = (new AccessFileViewModel
+
+            return accessFVM = (new AccessFileViewModel
             {
                 //IPPort = "http://103.238.155.192/"
                 //                ,
