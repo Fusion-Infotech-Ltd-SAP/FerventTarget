@@ -12,11 +12,13 @@ namespace Target
         private AccessFileViewModel accessFVM;
         public SAPCustomer()
         {
-            accessFVM = Global.objFun.GetAccessFile();
+            accessFVM = Global.objFun.GetAccessFile("FERVENT_ERPNext");
             Application.SBO_Application.FormDataEvent += new SAPbouiCOM._IApplicationEvents_FormDataEventEventHandler(SBO_Application_FormDataEvent);
         }
+
         private void SBO_Application_FormDataEvent(ref SAPbouiCOM.BusinessObjectInfo BusinessObjectInfo, out bool BubbleEvent)
         {
+
             BubbleEvent = true;
 
             if (BusinessObjectInfo.BeforeAction == true && BusinessObjectInfo.EventType == SAPbouiCOM.BoEventTypes.et_FORM_DATA_ADD
@@ -47,6 +49,9 @@ namespace Target
                                 SAPbouiCOM.EditText BpName = (SAPbouiCOM.EditText)oform.Items.Item("7").Specific;
                                 SAPbouiCOM.EditText StartDate = (SAPbouiCOM.EditText)oform.Items.Item("10002058").Specific;
                                 SAPbouiCOM.EditText EndDate = (SAPbouiCOM.EditText)oform.Items.Item("10002055").Specific;
+
+                                string phoneNum = ((SAPbouiCOM.EditText)oform.Items.Item("51").Specific).Value.Trim();
+                                //string phoneNum = oform.DataSources.DBDataSources.Item("OCPR").GetValue("Cellular", 0).Trim();
 
                                 SAPbouiCOM.ComboBox BpGroup = (SAPbouiCOM.ComboBox)oform.Items.Item("16").Specific;
                                 string BpGroupCode = BpGroup.Selected.Description.Trim(); //"Corporate Customers";
@@ -106,6 +111,7 @@ namespace Target
                                 CustomerMaster.custom_latitude = Latitude;
                                 CustomerMaster.custom_longitude = Longitude;
                                 CustomerMaster.custom_radius = Radius;
+                                CustomerMaster.custom_phone = phoneNum;
 
                                 ///Created/Updated By and Name
                                 SAPbobsCOM.Recordset businessObject = (SAPbobsCOM.Recordset)Global.ocomp.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset);
@@ -118,7 +124,7 @@ namespace Target
                                 ReturnData data = new ReturnData();
                                 Success = SaveAndUpdateBPMaster(CustomerMaster, data);
 
-                                if (Success == true && data.item_code != "")
+                                if (Success == true)
                                 {
                                     Application.SBO_Application.SetStatusBarMessage("Api Msg:" + data.ReturnMsg, SAPbouiCOM.BoMessageTime.bmt_Medium, false);
                                 }
@@ -128,8 +134,9 @@ namespace Target
                                     Application.SBO_Application.MessageBox("Customer Creation OR Updation failed — not synced with ERP-Next.");
 
                                     BubbleEvent = false; //Bubble Event-> To stop Adding item on Item Master on SAP B1
+                                    return;
                                 }
-                                break;
+
                             }
                             break;
                         }

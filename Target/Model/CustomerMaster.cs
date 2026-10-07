@@ -23,5 +23,7 @@ namespace Target.Model
         public string custom_radius { get; set; }
         public string user_id { get; set; }
         public string user_name { get; set; }
+
+        public string custom_phone { get; set; }
     }
 }
