@@ -194,10 +194,24 @@ namespace Target
                         (SAPbobsCOM.Recordset)Global.ocomp.GetBusinessObject(
                             SAPbobsCOM.BoObjectTypes.BoRecordset);
 
+                    //string sql =
+                    //    "SELECT \"DocNum\", \"CardCode\", \"DocDate\", \"TrackNo\", \"U_CELLPHNO\" AS \"DriverContactNumber\", \"U_NOTIFYSND\" AS \"isChecked\" " +
+                    //    "FROM \"ODLN\" " +
+                    //    "WHERE \"DocEntry\" = " + docEntry;
+
                     string sql =
-                        "SELECT \"DocNum\", \"CardCode\", \"DocDate\", \"TrackNo\", \"U_CELLPHNO\" AS \"DriverContactNumber\", \"U_NOTIFYSND\" AS \"isChecked\" " +
-                        "FROM \"ODLN\" " +
-                        "WHERE \"DocEntry\" = " + docEntry;
+                            "SELECT " +
+                            "T0.\"DocNum\", " +
+                            "T0.\"CardCode\", " +
+                            "T0.\"DocDate\", " +
+                            "T0.\"TrackNo\", " +
+                            "T0.\"U_CELLPHNO\" AS \"DriverContactNumber\", " +
+                            "T0.\"U_NOTIFYSND\" AS \"isChecked\", " +
+                            "T2.\"ExtEmpNo\" AS \"EmployeeNo\" " +
+                            "FROM \"ODLN\" T0 " +
+                            "LEFT JOIN \"OSLP\" T1 ON T0.\"SlpCode\" = T1.\"SlpCode\" " +
+                            "LEFT JOIN \"OHEM\" T2 ON T2.\"salesPrson\" = T1.\"SlpCode\" " +
+                            "WHERE T0.\"DocEntry\" = " + docEntry;
 
                     rs.DoQuery(sql);
 
@@ -205,6 +219,7 @@ namespace Target
                     if (rs.RecordCount > 0)
                     {
                         string dealerCode = rs.Fields.Item("CardCode").Value.ToString().Trim();
+                        string EmployeeNo = rs.Fields.Item("EmployeeNo").Value.ToString().Trim();
                         string docNum = rs.Fields.Item("DocNum").Value.ToString().Trim();
                         DateTime docDate = Convert.ToDateTime(rs.Fields.Item("DocDate").Value);
                         string vehicleNo = rs.Fields.Item("TrackNo").Value.ToString().Trim();
@@ -229,10 +244,11 @@ namespace Target
                             DeliveryERPNextReturnData erpReturnData =
                                 new DeliveryERPNextReturnData();
 
-                            challanNotification.type = "Delevery Chalan";
+                            challanNotification.type = "Delivery Chalan";
                             challanNotification.greetings = "Greetings from FERVENT";
                             challanNotification.refchalan = docNum;
                             challanNotification.dealer_code = dealerCode;
+                            challanNotification.sales_person = EmployeeNo;
                             challanNotification.date = docDate.ToString("yyyy-MM-dd");
                             challanNotification.vehicle_no = vehicleNo;
                             challanNotification.driver_contact = driverContact;

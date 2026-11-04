@@ -60,10 +60,24 @@ namespace Target
                         (SAPbobsCOM.Recordset)Global.ocomp.GetBusinessObject(
                             SAPbobsCOM.BoObjectTypes.BoRecordset);
 
+                    //string sql =
+                    //    "SELECT \"DocNum\", \"CardCode\", \"DocDate\", \"DocTotal\", \"U_NOTIFYSND\" AS \"isChecked\" " +
+                    //    "FROM \"ORCT\" " +
+                    //    "WHERE \"DocEntry\" = " + docEntry;
+
                     string sql =
-                        "SELECT \"DocNum\", \"CardCode\", \"DocDate\", \"DocTotal\", \"U_NOTIFYSND\" AS \"isChecked\" " +
-                        "FROM \"ORCT\" " +
-                        "WHERE \"DocEntry\" = " + docEntry;
+                            "SELECT " +
+                            "T0.\"DocNum\", " +
+                            "T0.\"CardCode\", " +
+                            "T0.\"DocDate\", " +
+                            "T0.\"DocTotal\", " +
+                            "T0.\"U_NOTIFYSND\" AS \"isChecked\", " +
+                            "T3.\"ExtEmpNo\" AS \"EmployeeNo\" " +
+                            "FROM \"ORCT\" T0 " +
+                            "LEFT JOIN \"OCRD\" T1 ON T0.\"CardCode\" = T1.\"CardCode\" " +
+                            "LEFT JOIN \"OSLP\" T2 ON T1.\"SlpCode\" = T2.\"SlpCode\" " +
+                            "LEFT JOIN \"OHEM\" T3 ON T3.\"salesPrson\" = T2.\"SlpCode\" " +
+                            "WHERE T0.\"DocEntry\" = " + docEntry;
 
                     rs.DoQuery(sql);
 
@@ -71,6 +85,7 @@ namespace Target
                     if (rs.RecordCount > 0)
                     {
                         string dealerCode = rs.Fields.Item("CardCode").Value.ToString().Trim();
+                        string EmployeeNo = rs.Fields.Item("EmployeeNo").Value.ToString().Trim();
                         string docNum = rs.Fields.Item("DocNum").Value.ToString().Trim();
                         DateTime docDate = Convert.ToDateTime(rs.Fields.Item("DocDate").Value);
                         decimal amount = Convert.ToDecimal(rs.Fields.Item("DocTotal").Value);
@@ -130,6 +145,7 @@ namespace Target
                             erpNotification.greetings = "Greetings from FERVENT Payment Received Amount";
                             erpNotification.refchalan = docNum;
                             erpNotification.dealer_code = dealerCode;
+                            erpNotification.sales_person = EmployeeNo;
                             erpNotification.date = docDate.ToString("yyyy-MM-dd");
                             erpNotification.amount = amount;
 

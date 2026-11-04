@@ -24,6 +24,9 @@ namespace Target.Model
             public string driver_contact { get; set; }
 
             public string dealer_code { get; set; }
+
+            public string sales_person { get; set; }
+
             public List<Item> items { get; set; }
 
             public class Item
