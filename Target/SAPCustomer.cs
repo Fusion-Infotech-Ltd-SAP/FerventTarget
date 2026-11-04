@@ -10,6 +10,7 @@ namespace Target
     class SAPCustomer
     {
         private AccessFileViewModel accessFVM;
+
         public SAPCustomer()
         {
             accessFVM = Global.objFun.GetAccessFile("FERVENT_ERPNext");
